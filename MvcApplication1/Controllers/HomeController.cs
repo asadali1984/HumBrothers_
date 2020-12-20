@@ -11,11 +11,26 @@ using System.Data.Entity;
 using System.Transactions;
 using System.Configuration;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace MvcApplication1.Controllers
 {
+    
     public class HomeController : Controller
     {
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+            if (session["user"] == null)
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {
+                                { "Controller", "Login" },
+                                { "Action", "Index" }
+                                });
+            }
+        }
+
         DbTransaction trans = null;
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["HamBrosConnection"].ConnectionString);
         public ActionResult Index()
@@ -72,7 +87,7 @@ namespace MvcApplication1.Controllers
                                 BranchId = dsr.BranchId,
                                 Isdone = dsr.Isdone,
                                 CreateAt = dsr.CreateAt,
-                                CreateBy = dsr.CreateBy,
+                                CreateBy = Session["user"].ToString(),
                                 Isdon = dsr.Isdon,
                                 Username = dsr.Username,
                                 saleper = dsr.saleper,

@@ -623,3 +623,4 @@ function CheckSubmitBtn() {
         $('#SubmitMoviesBtn').attr("disabled", "disabled");
     }
 }
+
