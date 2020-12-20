@@ -1,0 +1,167 @@
+﻿@*@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Login.cshtml";
+} 
+
+<div class="containers">
+
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading"> <img src="/Images/logo.jpg" />  </h2>
+        <input type="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" class="form-control" placeholder="Password" required>
+        <label class="checkbox">
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+
+    </div> <!-- /container -->*@
+
+@*@model Sales.Models.User*@
+
+@*@model IEnumerable<Sales.DAL.BOUser> *@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Login.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div>
+        <div class="container">
+
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">Please sign in</h2>
+@*        <input type="email" class="form-control" placeholder="Email address" required autofocus id="txtusername">*@
+          <input type="text" id="txtusername" class="form-control" placeholder="Email address" required autofocus >
+        <input type="password" id="txtpasswrod" class="form-control" placeholder="Password" required >
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnlogin" >Sign in</button>
+      </form>
+
+    </div> <!-- /container -->
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#btnlogin").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json; charset=utf-8",
+                        url: "/User/Check",
+                         data : { "ID": "", "Name": "", "Password": "", "email": "", "IsActive": "", "roleid": "" },
+                        //data: "{ CustomerID: '" + $('#Customers').val() + "'}",
+                        dataType: "json",
+                        success: function (data) {
+                            alert(result.ex);
+                            window.location.href =  "/Item/index";
+                            //  $("#CustomerDetails").html(data.d); https://www.facebook.com/fahim.siddiqui.771/media_set?set=a.232967276868418.1073741826.100004654417663&type=3
+                        }
+                    });
+                });
+            });
+</script>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+        @*<script type="text/javascript">
+
+
+
+            $("#btnlogin").click(function () {
+                Check();
+            });
+
+
+            function Check() {
+
+                // var item = { "ID": "", "Name": "", "Price": "", "Typeid": "", "TypeName": "", "Unit": "", "Pack": "" };
+                var item = { "ID": "", "Name": "", "Password": "", "email": "", "IsActive": "", "roleid": "" };
+                item.Name = $("#txtusername").val();
+                item.Password = $("#txtpasswrod").val();
+
+                 //var data = [{}];
+                //$.ajax({
+                //    type: "GET",
+                //    url: '/Item/Check',
+                //    data: JSON.stringify(item),
+                //        //'/path to your controller',
+                //    datatype: 'json',
+                //    success: function (data) {
+                //        alert(result.ex);
+                //        window.location.href =  "/Item/index";
+                //    }
+                //});
+
+            
+                $.ajax({
+                    url: '/Item/Check',
+                    data: JSON.stringify(item),
+
+                    type: 'GET',
+                    contentType: 'application/json;',
+                    dataType: 'json',
+                    success: function (result) {
+                        alert(result.ex);
+                        if (result.Success == "1") {
+                            
+                            window.location.href = "/Item/index";
+                        }
+                        else {
+                            alert(result.ex);
+                        }
+                    }
+                });
+            }
+
+
+
+            //function Check() {
+            //    //var item = { "ID": "", "Name": "", "Password": "", "email": "", "IsActive": "", "roleid": "" };
+            //    var item = { "ID": "", "Name": "", "Password": ""};
+            //    item.Name = $("#txtusername").val();
+            //    item.Password = $("#txtpasswrod").val();
+
+            //    // var data = [{}];
+            //    $.ajax({
+            //        url: '/login/Check',
+            //        data: JSON.stringify(item),
+
+            //        type: 'GET',
+            //        contentType: 'application/json;',
+            //        dataType: 'json',
+
+            //        success: function (result) {
+            //              alert("return");
+            //           // if (result.Success == "1") {
+            //               window.location.href = "Dashboard/index";
+            //            //}
+            //            //else {
+            //              //  alert(result.ex);
+            //            //}
+            //            //if (result.Success == "1") {
+            //            //    window.location.href = "/User/index";
+            //            //}
+            //            //else {
+            //            //    alert(result.ex);
+            //            //}
+
+            //        }
+            //    });
+            //}
+        </script>*@
+    </div>
+</body>
+</html>

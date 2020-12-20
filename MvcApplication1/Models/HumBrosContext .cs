@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data.Entity;  
+
+namespace MvcApplication1.Models
+{
+    public class HumBrosContext:DbContext
+    {
+        public HumBrosContext()
+            : base("HamBrosConnection") //Connection string name located in web.config file  
+        {  
+        }
+
+        public DbSet<Movies> Movies { get; set; }  //Movie model as property
+        public DbSet<tbl_Mdsr> tbl_Mdsr { get; set; }  //Movie model as property
+        public DbSet<tbl_ddsr> tbl_ddsr { get; set; }  //Movie model as property
+        public DbSet<Products> Products { get; set; }  //Movie model as property
+        public DbSet<tbl_area> tbl_area { get; set; }
+        public DbSet<Users> USers { get; set; }
+        public DbSet<customers_> customers_ { get; set; }
+        public DbSet<tbl_Salcredit> tbl_Salcredit { get; set; }
+
+    }
+}
