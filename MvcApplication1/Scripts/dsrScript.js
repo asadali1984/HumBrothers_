@@ -714,8 +714,8 @@ function getDsr() {
             //    );
             //    $("#dsrList tbody").append(tr)
             //})
-            //console.log(v);
-            //$("#products").append('<option value="' + v.ProductID + '">' + v.ProductName + '</option>');
+         
+            
             $('#dsrList > tbody').append(chtml);            
 
         });
