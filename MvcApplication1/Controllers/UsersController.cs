@@ -12,11 +12,13 @@ using System.IO;
 using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web.Routing;
 
 namespace MvcApplication1.Controllers
 {
     public class UsersController : Controller
     {
+        
         private HumBrosContext db = new HumBrosContext();
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["HamBrosConnection"].ConnectionString);
         //
