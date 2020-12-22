@@ -173,6 +173,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\customers_.cs" />
+    <Compile Include="Models\DSR.cs" />
     <Compile Include="Models\HumBrosContext .cs" />
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\Products.cs" />
