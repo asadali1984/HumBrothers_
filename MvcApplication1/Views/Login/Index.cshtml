@@ -1,4 +1,8 @@
-﻿@*@{
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@*@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Login.cshtml";
 } 
@@ -21,10 +25,10 @@
 
 @*@model IEnumerable<Sales.DAL.BOUser> *@
 
-@{
+@*@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Login.cshtml";
-}
+}*@
 <!DOCTYPE html>
 
 <html>
@@ -34,43 +38,23 @@
 </head>
 <body>
     <div>
-        <div class="container">
+        <div class="container m-3">
 
       <form class="form-signin" role="form">
         <h2 class="form-signin-heading">Please sign in</h2>
 @*        <input type="email" class="form-control" placeholder="Email address" required autofocus id="txtusername">*@
           <input type="text" id="txtusername" class="form-control" placeholder="Email address" required autofocus >
         <input type="password" id="txtpasswrod" class="form-control" placeholder="Password" required >
-        <div class="checkbox">
+        @*<div class="checkbox">
           <label>
             <input type="checkbox" value="remember-me"> Remember me
           </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="btnlogin" >Sign in</button>
+        </div>*@
+        <button class="btn btn-lg btn-primary btn-block" type="button" id="btnlogin" >Sign in</button>
       </form>
 
     </div> <!-- /container -->
 
-
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#btnlogin").click(function () {
-                    $.ajax({
-                        type: "GET",
-                        contentType: "application/json; charset=utf-8",
-                        url: "/User/Check",
-                         data : { "ID": "", "Name": "", "Password": "", "email": "", "IsActive": "", "roleid": "" },
-                        //data: "{ CustomerID: '" + $('#Customers').val() + "'}",
-                        dataType: "json",
-                        success: function (data) {
-                            alert(result.ex);
-                            window.location.href =  "/Item/index";
-                            //  $("#CustomerDetails").html(data.d); https://www.facebook.com/fahim.siddiqui.771/media_set?set=a.232967276868418.1073741826.100004654417663&type=3
-                        }
-                    });
-                });
-            });
-</script>
 
 
     <!-- Bootstrap core JavaScript
@@ -163,5 +147,7 @@
             //}
         </script>*@
     </div>
+    
+<script src="~/Scripts/UserScript.js"></script>
 </body>
 </html>

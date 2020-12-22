@@ -11,11 +11,26 @@ using System.Data.Entity;
 using System.Transactions;
 using System.Configuration;
 using Newtonsoft.Json;
+using System.Web.Routing;
 
 namespace MvcApplication1.Controllers
 {
+    
     public class HomeController : Controller
     {
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            HttpSessionStateBase session = filterContext.HttpContext.Session;
+            if (session["user"] == null)
+            {
+                filterContext.Result = new RedirectToRouteResult(
+                    new RouteValueDictionary {
+                                { "Controller", "Login" },
+                                { "Action", "Index" }
+                                });
+            }
+        }
+
         DbTransaction trans = null;
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["HamBrosConnection"].ConnectionString);
         public ActionResult Index()
@@ -72,7 +87,7 @@ namespace MvcApplication1.Controllers
                                 BranchId = dsr.BranchId,
                                 Isdone = dsr.Isdone,
                                 CreateAt = dsr.CreateAt,
-                                CreateBy = dsr.CreateBy,
+                                CreateBy = Session["user"].ToString(),
                                 Isdon = dsr.Isdon,
                                 Username = dsr.Username,
                                 saleper = dsr.saleper,
@@ -212,6 +227,63 @@ namespace MvcApplication1.Controllers
             }
             
         }
+
+
+        public string getDsr()
+        {
+            using (HumBrosContext db = new HumBrosContext())
+            {
+                string usr = Session["user"].ToString();
+                List<DSR> lstitem = new List<DSR>();
+                var data = (from t in db.tbl_Mdsr
+                           join i in db.tbl_ddsr on t.dsrid equals i.dsrid
+                           join j in db.customers_ on t.CustomerID equals j.cust_acc
+                           where t.CreateBy ==  usr orderby t.dsrid descending
+                            select new { dsrid = t.dsrid, dsrdat = t.dsrdat, CustomerName = j.CustomerName }).Distinct();
+                foreach (var item in data)
+                {
+                    DSR boitem = new DSR();
+                    boitem.dsrid = item.dsrid;
+                    boitem.dsrdat = item.dsrdat;
+                    //boitem.CustomerID = item.CustomerID;
+                    boitem.CustomerName = item.CustomerName;
+                    lstitem.Add(boitem);
+
+                }
+                return JsonConvert.SerializeObject(lstitem);
+            }
+            
+        }
+
+        public string deleteDsr(int id)
+        {
+            try
+            {
+                using (HumBrosContext db = new HumBrosContext())
+                {
+                    int dsrid_ = id;
+                    tbl_Mdsr dsrid = (from t in db.tbl_Mdsr where t.dsrid == dsrid_ select t).FirstOrDefault();
+                    tbl_ddsr ddsrid = (from t in db.tbl_ddsr where t.dsrid == dsrid_ select t).FirstOrDefault();
+
+                    //Remove from Child DSR
+                    db.tbl_ddsr.Remove(ddsrid);
+                    db.SaveChanges();
+
+                    //Remove from Parent DSR
+                    db.tbl_Mdsr.Remove(dsrid);
+                    db.SaveChanges();
+
+                    return "DSR Deleted";
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+           
+        }
+
+        
         // get mdsrid
         public string getMdsrid()
         {

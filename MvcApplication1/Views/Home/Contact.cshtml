@@ -1,5 +1,5 @@
 ﻿@*Page scripts references*@    
-<script src="~/Scripts/dsrScript.js" type="text/javascript"></script>    
+
     <style type="text/css">
         .scrollit {
             overflow:scroll;
@@ -8,8 +8,15 @@
 	        margin:0px auto;
         }
     </style>
-<section class="m-3">    
-    <section class="card">    
+<section class="m-3"> 
+    <section class="card">  
+        <section class="card-header text-right">    
+            <button id="btnLogOut"  class="btn btn-success w-30">Log Out</button> 
+        </section>    
+    </section>
+    <br />
+    <section class="card"> 
+        
         <section class="card-header text-center">    
             <label class="h3">Create DSR</label>    
         </section>    
@@ -116,9 +123,15 @@
                 </section> 
                 <section class="text-center">    
                     <button id="SubmitMoviesBtn" disabled="disabled" class="btn btn-success w-30">SAVE</button>    
-                    <button id="SubmitCancelBtn" class="btn btn-danger w-30">Cancel</button>    
+                    <button id="SubmitCancelBtn" class="btn btn-danger w-30">Cancel</button>
+                    <br />
+                    <br />
+                    <a href="/Home/About" class="btn btn-info w-30">DSR List</a>    
                 </section>    
             </section>    
         </section>    
     </section>    
 </section>    
+
+<script src="~/Scripts/dsrScript.js" type="text/javascript"></script>   
+<script src="~/Scripts/UserScript.js"></script>

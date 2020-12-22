@@ -333,9 +333,9 @@ function PostItemData() {
     item.BranchId = "001";
     item.Isdone = true;
     item.CreateAt = datetime;
-    item.CreateBy = "admin";
-    item.Isdon = "1";
-    item.Username = "admin";
+    item.CreateBy = "";
+    item.Isdon = "0";
+    item.Username = "";
     item.saleper = $("#saleper").val();
     item.prevbal = $("#prevbal").val();
     item.Salesman = $("#SalesMan option:selected").html();
@@ -353,6 +353,23 @@ function PostItemData() {
         success: function (result) {
             getMdsrId();
             setTimeout(function () { PostMovies(); }, 1000);
+
+            $("#dsrdat").val("");
+            $("#prevbal").val("0.00");
+            $("#saleper").val("0.00");
+            $("#SalesMan").val("");
+            $("#areaid").val("");
+            $("#CustomerID").val("");
+            $("#ttlamt").val("0.00");
+
+            $("#ProductID").val = "";
+            $("#products").val("");
+            $("#Qty").val("0.00");
+            $("#salrat").val("0.00");
+            $("#salrturn").val("0.00");
+            $("#Amt").val("0.00");
+
+           
            // location.reload();
         },
         error: function (err) {
@@ -368,7 +385,7 @@ function PostMovies() {
     var MoviesList = []; // list object  
     
     
-    $('#table-information > tbody  > tr').each(function () { //loop in table list  
+    $('#table-body  > tr').each(function () { //loop in table list  
 
         var Movie = {}; // create new Movie object and set its properties  
         Movie.dsrid = dsrid;
@@ -395,7 +412,7 @@ function PostMovies() {
 
         MoviesList.push(Movie); // add Movie object to list object  
     });
-
+    console.log('list',MoviesList);
     //Send list of movies to controller via ajax  
     $.ajax({
         url: '/home/SaveDDSR',
@@ -621,5 +638,94 @@ function CheckSubmitBtn() {
         $('#SubmitMoviesBtn').removeAttr("disabled");
     } else {
         $('#SubmitMoviesBtn').attr("disabled", "disabled");
+    }
+}
+
+
+function deleteDsr(dsrid)
+{
+    var test;
+    test = confirm("Are you Sure you Want to Delete?");
+
+    if (test) {
+        var uri = '/home/deleteDsr/' + dsrid;
+        //var uri = '/dsr/getArea/';
+
+        $.ajax({
+            type: "POST",
+            url: uri, ///Item/GetItemType',
+            contentType: 'application/json;',
+            dataType: "json",
+            success: successFunc,
+            error: errorFunc
+        });
+        function successFunc(data, status) {
+            alert('DSR has been deleted!..');
+            //console.log('data',data);
+            //console.log('status',status);
+            location.reload();
+        }
+        function errorFunc(data) {
+
+            //console.log('error', data);
+            alert('DSR has been deleted!..');
+            location.reload();
+           
+        }
+
+    } else {
+        alert('notg Deleting...');
+    }
+    
+}
+function getDsr() {
+    var uri = '/home/getDsr';
+    //var uri = '/dsr/getArea/';
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        //console.log(data);
+        //var data1 = jQuery.parseJSON(data);
+        console.log('dsr-data', data);
+
+        //$("#products").empty();
+        //$("#products").append('<option value="">Select here..</option>');
+        $.each(data, function (k, value) {
+
+            var chtml = "";
+            chtml += "'<tr>";
+            chtml += "    <td>" + value.dsrdat + "</td>";
+            chtml += "    <td>" + value.CustomerName + "</td>";
+            chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.dsrid + ")'>Delete</a></td>";
+            chtml += " </tr>'";
+            //var tr = $("<tr />")
+            //$.each(value, function (k, v) {
+            //    tr.append(
+            //      $("<td />", {
+            //          html: v
+            //      })[0].outerHTML
+            //    );
+            //    $("#dsrList tbody").append(tr)
+            //})
+         
+            
+            $('#dsrList > tbody').append(chtml);            
+
+        });
+        //$("#tableContainer").html(html);
+
+    }
+
+    function errorFunc(data) {
+        //alert(Object.values(err));
+        console.log(data);
+
     }
 }

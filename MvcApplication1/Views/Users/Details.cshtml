@@ -1,0 +1,176 @@
+﻿@model MvcApplication1.Models.Users
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Users</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BranchId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BranchId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Username)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Username)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Password)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Password)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Designation)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Designation)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TelephoneNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TelephoneNo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FaxNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FaxNo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MobileNo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MobileNo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Email)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CanChangePassword)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CanChangePassword)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Level)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Level)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AccountDisable)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AccountDisable)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateBy)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateBy)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CreateTerminal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CreateTerminal)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateBy)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateBy)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateTime)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateTime)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UpdateTerminal)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UpdateTerminal)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CompanyName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompanyName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CompanyImg)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CompanyImg)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Salary)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Salary)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.usr_acc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.usr_acc)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
