@@ -12,6 +12,7 @@ $(document).ready(function () {
             PostItemData();
         
     });
+    $("#saleper").attr("disabled", true);
    
     $("#SubmitCancelBtn").click(function () { location.reload(); });
 
@@ -173,7 +174,7 @@ function getSalesman() {
         console.log(data);
         $.each(data, function (k, v) {
             console.log(v);
-            $("#SalesMan").append('<option value="' + v.id + '">' + v.Username + '</option>');
+            $("#SalesMan").append('<option value="' + v.booksalman + '">' + v.salmanid + '</option>');
         });
 
     }
@@ -354,22 +355,6 @@ function PostItemData() {
             getMdsrId();
             setTimeout(function () { PostMovies(); }, 1000);
 
-            $("#dsrdat").val("");
-            $("#prevbal").val("0.00");
-            $("#saleper").val("0.00");
-            $("#SalesMan").val("");
-            $("#areaid").val("");
-            $("#CustomerID").val("");
-            $("#ttlamt").val("0.00");
-
-            $("#ProductID").val = "";
-            $("#products").val("");
-            $("#Qty").val("0.00");
-            $("#salrat").val("0.00");
-            $("#salrturn").val("0.00");
-            $("#Amt").val("0.00");
-
-           
            // location.reload();
         },
         error: function (err) {
@@ -428,6 +413,21 @@ function PostMovies() {
                 ClearForm(); //clear form fields  
                 $('#table-body').empty(); // clear table items  
                 CheckSubmitBtn(); // disable submit button  
+
+                $("#dsrdat").val("");
+                $("#prevbal").val("0.00");
+                $("#saleper").val("0.00");
+                $("#SalesMan").val("");
+                $("#areaid").val("");
+                $("#CustomerID").val("");
+                $("#ttlamt").val("0.00");
+
+                $("#ProductID").val = "";
+                $("#products").val("");
+                $("#Qty").val("0.00");
+                $("#salrat").val("0.00");
+                $("#salrturn").val("0.00");
+                $("#Amt").val("0.00");
                
             } else {
                 ShowMsn("Ooops, an error has ocurrer while processing the transaction.");

@@ -178,6 +178,7 @@
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\Products.cs" />
     <Compile Include="Models\tbl_area.cs" />
+    <Compile Include="Models\tbl_booksalman.cs" />
     <Compile Include="Models\tbl_ddsr.cs" />
     <Compile Include="Models\tbl_Mdsr.cs" />
     <Compile Include="Models\tbl_Salcredit.cs" />

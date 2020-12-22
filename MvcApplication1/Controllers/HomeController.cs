@@ -329,18 +329,19 @@ namespace MvcApplication1.Controllers
         //GET Area
         public string getSalesMan()
         {
-            List<Users> lstitemarea = new List<Users>();
+            List<tbl_booksalman> lstitemarea = new List<tbl_booksalman>();
 
             using (HumBrosContext db = new HumBrosContext())
             {
-                var data = from t in db.USers
-                           where t.Level == "3"
+                string bookerid_ = Session["user"].ToString();
+                var data = from t in db.tbl_booksalman
+                           where t.bookerid == bookerid_
                            select t;
                 foreach (var item in data)
                 {
-                    Users usrs = new Users();
-                    usrs.id = item.id;
-                    usrs.Username = item.Username;
+                    tbl_booksalman usrs = new tbl_booksalman();
+                    usrs.booksalman = item.booksalman;
+                    usrs.salmanid = item.salmanid;
                     lstitemarea.Add(usrs);
                 }
             }
