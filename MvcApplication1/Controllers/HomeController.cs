@@ -31,7 +31,7 @@ namespace MvcApplication1.Controllers
             }
         }
 
-        DbTransaction trans = null;
+        //DbTransaction trans = null;
         SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["HamBrosConnection"].ConnectionString);
         public ActionResult Index()
         {
@@ -66,8 +66,7 @@ namespace MvcApplication1.Controllers
 
         [HttpPost]
         public JsonResult insertMdsr(tbl_Mdsr dsr)
-        {
-            string msg = "";
+        { 
             if (dsr != null)
             {
                 // TODO: Add insert logic here

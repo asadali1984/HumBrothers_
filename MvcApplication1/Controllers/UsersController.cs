@@ -10,7 +10,6 @@ using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
-using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 
