@@ -142,6 +142,7 @@ function getArea() {
         //console.log(data);
         //var data1 = jQuery.parseJSON(data);
         console.log(data);
+       // $("#areaid").append('<option value="">Select here..</option>');
         $.each(data, function (k, v) {
             console.log(v);
             $("#areaid").append('<option value="' + v.areaid + '">' + v.area_ + '</option>');
@@ -678,6 +679,111 @@ function deleteDsr(dsrid)
     }
     
 }
+var redirectForUpdate = function (id) {
+    window.location.href = '/home/setPageData/' + id;
+}
+
+function getDsrforUpdate(id) {
+    var uri = '/home/getDsrforUpdate/' + id;
+    //var uri = '/dsr/getArea/';
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        //console.log(data);
+        //var data1 = jQuery.parseJSON(data);
+        console.log('dsr-data', data);
+        $("#areaid").val(data[0].areaid);
+        $("#saleper").val(data[0].saleper);
+        $("#prevbal").val(data[0].prevbal);
+        $("#ttlamt").val(data[0].ttlamt);
+        
+        //Getting Details DSR
+
+        getDsrListforUpdate(id);
+        //$.each(data, function (k, value) {
+        //    console.log('saleper', value.saleper);
+
+        //    $.each(data, function (k, value) {
+        //        var chtml = "";
+        //        chtml += "'<tr>";
+        //        chtml += "    <td>" + value.dsrdat + "</td>";
+        //        chtml += "    <td>" + value.CustomerName + "</td>";
+        //        chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.dsrid + ")'>Delete</a></td>";
+        //        chtml += " </tr>'";
+        //        //var tr = $("<tr />")
+        //        //$.each(value, function (k, v) {
+        //        //    tr.append(
+        //        //      $("<td />", {
+        //        //          html: v
+        //        //      })[0].outerHTML
+        //        //    );
+        //        //    $("#dsrList tbody").append(tr)
+        //        //})
+
+
+        //        $('#table-information > tbody').append(chtml);
+
+        //    });
+        //    //$("#tableContainer").html(html);
+
+        //});
+    }
+    function errorFunc(data) {
+        //alert(Object.values(err));
+        console.log(data);
+
+    }
+}
+
+
+function getDsrListforUpdate(id) {
+    var uri = '/home/getDsrListforUpdate/' + id;
+    //var uri = '/dsr/getArea/';
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        //console.log(data);
+        //var data1 = jQuery.parseJSON(data);
+        console.log('dsr-data', data);
+        
+            $.each(data, function (k, value) {
+                var chtml = "";
+                chtml += "'<tr>";
+                chtml += "    <td>" + value.ProductName + "<input type='hidden' value='" + value.ProductID + "' /></td>";
+                chtml += "    <td>" + value.Qty + "</td>";
+                chtml += "    <td>" + value.salrat + "</td>";
+                chtml += "    <td>" + value.salrturn + "</td>";
+                chtml += "    <td>" + value.Amt + "</td>";
+                chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.ddsr + ")'>Delete</a></td>";
+                chtml += " </tr>'";
+            
+                $('#table-information > tbody').append(chtml);
+
+            });
+       
+    }
+
+    function errorFunc(data) {
+        //alert(Object.values(err));
+        console.log(data);
+
+    }
+}
+
 function getDsr() {
     var uri = '/home/getDsr';
     //var uri = '/dsr/getArea/';
@@ -698,12 +804,11 @@ function getDsr() {
         //$("#products").empty();
         //$("#products").append('<option value="">Select here..</option>');
         $.each(data, function (k, value) {
-
             var chtml = "";
             chtml += "'<tr>";
             chtml += "    <td>" + value.dsrdat + "</td>";
             chtml += "    <td>" + value.CustomerName + "</td>";
-            chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.dsrid + ")'>Delete</a></td>";
+            chtml += "    <td><a href='#' class='btn btn-info' onclick='redirectForUpdate(" + value.dsrid + ")'>Update</a> <a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.dsrid + ")'>Delete</a></td>";
             chtml += " </tr>'";
             //var tr = $("<tr />")
             //$.each(value, function (k, v) {

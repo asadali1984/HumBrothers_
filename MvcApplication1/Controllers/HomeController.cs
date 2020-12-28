@@ -206,6 +206,26 @@ namespace MvcApplication1.Controllers
             return Json(Result);
         }
 
+        [HttpPost]
+        public JsonResult updateDDSR(string dsrid)  //function to save information into database
+        {
+            dsrid = "48";
+
+            using (HumBrosContext db = new HumBrosContext())
+            {
+                //var lastId = (from i in db.tbl_Mdsr select i.dsrid).Max();
+                db.tbl_ddsr.Where(c => c.dsrid == Convert.ToInt32(dsrid)).ToList();//;.SetValue(c => c.CreditLimit = 1000);
+                //foreach (tbl_ddsr mov in tblddsr)
+                //{
+                //    db.tbl_ddsr.Add(mov);
+                //}
+                //db.SaveChanges();
+            }
+
+            bool Result = true;
+            return Json(Result);
+        }
+
 
         public string getProduct()
         {
@@ -254,6 +274,68 @@ namespace MvcApplication1.Controllers
             
         }
 
+        public string getDsrListforUpdate(int id)
+        {
+            using (HumBrosContext db = new HumBrosContext())
+            {
+
+                List<tbl_ddsr> lstitem = new List<tbl_ddsr>();
+                var data = (from t in db.tbl_ddsr
+                            join j in db.Products on t.ProductID equals j.ProductID
+                            where t.dsrid == id 
+                            //orderby t.dsrid descending
+                            select new {ddsr = t.ddsr, dsrid = t.dsrid,productid = j.ProductID, productname = j.ProductName, qty = t.Qty, salrat = t.salrat, salreturn = t.salrturn,
+                                amt = t.Amt
+                            }).ToList();
+                foreach (var item in data)
+                {
+                    tbl_ddsr boitem = new tbl_ddsr();
+                    boitem.ddsr = item.ddsr;
+                    boitem.dsrid = item.dsrid;
+                    boitem.ProductID = item.productid;
+                    boitem.Qty = item.qty;
+                    boitem.salrat = item.salrat;
+                    boitem.salrturn = item.salreturn;
+                    boitem.Amt = item.amt;
+                    lstitem.Add(boitem);
+                }
+                return JsonConvert.SerializeObject(lstitem);
+            }
+
+        }
+        public string getDsrforUpdate(int id)
+        {
+            using (HumBrosContext db = new HumBrosContext())
+            {
+                string usr = Session["user"].ToString();
+                List<DSR> lstitem = new List<DSR>();
+                var data = (from t in db.tbl_Mdsr
+                            join i in db.tbl_ddsr on t.dsrid equals i.dsrid
+                            join j in db.customers_ on t.CustomerID equals j.cust_acc
+                            where t.dsrid == id 
+                            //orderby t.dsrid descending
+                            select new { dsrid = t.dsrid, dsrdat = t.dsrdat, salesman = t.Salesman, areaid = t.areaid, saleper = t.saleper,
+                                         prevbal = t.prevbal, ttlamt = i.ttlamt, CustomerName = j.CustomerName
+                            }).Distinct();
+                foreach (var item in data)
+                {
+                    DSR boitem = new DSR();
+                    boitem.dsrid = item.dsrid;
+                    boitem.dsrdat = item.dsrdat;
+                    boitem.Salesman = item.salesman;
+                    boitem.areaid = item.areaid;
+                    boitem.saleper = item.saleper;
+                    boitem.prevbal = item.prevbal;
+                    boitem.ttlamt = item.ttlamt;
+                    //boitem.CustomerID = item.CustomerID;
+                    boitem.CustomerName = item.CustomerName;
+                    lstitem.Add(boitem);
+
+                }
+                return JsonConvert.SerializeObject(lstitem);
+            }
+
+        }
         public string deleteDsr(int id)
         {
             try
@@ -414,6 +496,43 @@ namespace MvcApplication1.Controllers
             }
             return JsonConvert.SerializeObject(lstitemcustarea);
         }
+        //Update
+        public string update(tbl_Mdsr dsr)
+        {
+            tbl_Mdsr boitem = new tbl_Mdsr();
+            try
+            {
+                using (HumBrosContext ctx = new HumBrosContext())
+                {
+                    tbl_Mdsr check = (from t in ctx.tbl_Mdsr where t.dsrid == dsr.dsrid select t).FirstOrDefault();
+
+                        check.dsrdat = dsr.dsrdat;
+                        check.CustomerID = dsr.CustomerID;
+                        check.CompanyId = dsr.CompanyId;
+                        check.BranchId = dsr.BranchId;
+                        check.Isdone = dsr.Isdone;
+                        check.CreateAt = dsr.CreateAt;
+                        check.CreateBy = Session["user"].ToString();
+                        check.Isdon = dsr.Isdon;
+                        check.Username = dsr.Username;
+                        check.saleper = dsr.saleper;
+                        check.prevbal = dsr.prevbal;
+                        check.Salesman = dsr.Salesman;
+                        check.areaid = dsr.areaid;
+                        check.furout = dsr.furout;
+                        check.updateBy = dsr.updateBy;
+
+                    ctx.SaveChanges();
+                }
+
+            }
+            catch (Exception e)
+            {
+                throw;
+
+            }
+            return "item successfully update";
+        }
 
         public string getProductSalrat(int id)
         {
@@ -441,6 +560,11 @@ namespace MvcApplication1.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult setPageData()
+        {
             return View();
         }
     }

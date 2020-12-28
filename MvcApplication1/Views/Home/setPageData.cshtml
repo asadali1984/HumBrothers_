@@ -1,0 +1,151 @@
+﻿@*Page scripts references*@    
+
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        getDsrforUpdate('73');
+        //$('#dsrList').DataTable();
+
+        getDate();
+        
+    });
+</script>
+<script src="~/Scripts/dsrScript.js"></script>
+<script src="~/Scripts/UserScript.js"></script>
+<script src="~/Scripts/General.js"></script>
+
+    <style type="text/css">
+        .scrollit {
+            overflow:scroll;
+            height:100%;
+	        width:100%;           
+	        margin:0px auto;
+        }
+    </style>
+<section class="m-3"> 
+    <section class="card">  
+        <section class="card-header text-right">    
+            <button id="btnLogOut"  class="btn btn-success w-30">Log Out</button> 
+        </section>    
+    </section>
+    <br />
+    <section class="card"> 
+        
+        <section class="card-header text-center">    
+            <label class="h3">Update DSR</label>    
+        </section>    
+        <section class="card-body">    
+            <section id="form-container">  
+                <section class="form-group">    
+                    <label>Date</label>    
+                    <input type="date" id="dsrdat" name="dsrdat" class="form-control" />    
+                </section> 
+                <section class="form-group">    
+                    <label>SalesMan</label>    
+                    <select id="SalesMan" name="SalesMan" class="form-control">
+                       <option value="">Select--</option> 
+                    </select>    
+                </section> 
+                <section class="form-group">    
+                    <label>Area</label>    
+                    <select id="areaid" name="areaid" class="form-control">
+                       <option value="">Select--</option> 
+                    </select>    
+                </section> 
+                <section class="form-group">    
+                    <label>Customer</label>    
+                    <select id="CustomerID" name="CustomerID" class="form-control">
+                       <option value="">Select--</option> 
+                    </select>    
+                </section> 
+
+                 <section class="form-group">    
+                    <label>OutStanding</label>    
+                    <input type="number"  id="prevbal" name="prevbal" class="form-control" value="0.00" />  
+                </section> 
+                 <section class="form-group">    
+                    <label>Discount</label>    
+                    <input type="number"  id="saleper" name="saleper" class="form-control" value="0.00" />     
+                </section> 
+                  
+                <h2>Add Items</h2>
+                <hr />
+                 <section class="form-group">    
+                    <label>Items:</label> 
+                     <select id="products" name="products" class="form-control">
+                       <option value="">Select--</option> 
+                    </select>    
+                    <input type="hidden" placeholder="Products" id="ProductID" name="ProductID" class="form-control" />    
+                </section>
+                <section class="form-group">    
+                    <label>Quantity:</label>    
+                    <input type="number" placeholder="Qty" id="Qty" name="Qty" class="form-control" value="0.00" />    
+                </section> 
+                <section class="form-group">    
+                    <label>Sale Rate:</label>    
+                    <input type="number" placeholder="Sale Rate" id="salrat" name="salrat" class="form-control" value="0.00" />    
+                </section>
+                 <section class="form-group">    
+                    <label>Sale Return:</label>    
+                    <input type="number" placeholder="Sale Return" id="salrturn" name="salrturn" class="form-control" value="0.00" />    
+                </section> 
+                 <section class="form-group">    
+                    <label>Amount:</label>    
+                    <input type="number" placeholder="Amount" id="Amt" name="Amt" class="form-control" value="0.00" />    
+                </section>                   
+                @*<section class="form-group">    
+                    <label>Title:</label>    
+                    <input type="text" placeholder="Title" id="TitleTxt" class="form-control" />    
+                </section>    
+                <section class="form-group">    
+                    <label>Summary:</label>    
+                    <input type="text" placeholder="Summary" id="SummaryTxt" class="form-control" />    
+                </section>    
+                <section class="form-group">    
+                    <label>Year:</label>    
+                    <input type="text" placeholder="Year" id="YearTxt" class="form-control" />    
+                </section>   *@ 
+                <section class="text-center">    
+                    <a href="javascript:void(0)" class="btn btn-info" id="AddTempMovieBtn">ADD</a>    
+                </section>    
+            </section>    
+            <section id="MsnContainer">    
+                <section class="text-center">    
+                    <label class="font-weight-bold text-danger" id="Msn"></label>    
+                </section>    
+            </section>    
+            <br><br>    
+            <section id="table-container">
+                <div class="scrollit">    
+                    <table class="table table-bordered table-striped" id="table-information">    
+                        <thead>    
+                            <tr class="bg-info text-light font-weight-bold text-center">    
+                                <td>ITEM NAME</td>    
+                                <td>QUANTITY</td>    
+                                <td>SALE RATE</td>    
+                                <td>SALE RETURN</td>    
+                                <td>AMOUNT</td>    
+                                <td>Actions</td>    
+                            </tr>    
+                        </thead>    
+                        <tbody id="table-body"></tbody>    
+                    </table>  
+                </div> 
+                <section class="form-group">    
+                    <label>Total After Discount</label>    
+                     <input type="number"  id="ttlamt" name="ttlamt" class="form-control" value="0.00" />     
+                </section> 
+                <section class="text-center">    
+                    <button id="SubmitMoviesBtn" disabled="disabled" class="btn btn-success w-30">SAVE</button>    
+                    <button id="SubmitCancelBtn" class="btn btn-danger w-30">Cancel</button>
+                    <br />
+                    <br />
+                    <a href="/Home/About" class="btn btn-info w-30">DSR List</a>    
+                </section>    
+            </section>    
+        </section>    
+    </section>    
+</section>    
