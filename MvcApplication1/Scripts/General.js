@@ -8,3 +8,11 @@
 
     $('#dsrdat').val(today);
 }
+
+//Getting URL Values
+var getUrlVars = function () {
+
+    var id = location.pathname.substring(location.pathname.lastIndexOf("/") + 1)
+    return id;
+}
+

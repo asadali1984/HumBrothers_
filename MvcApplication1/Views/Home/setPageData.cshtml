@@ -1,21 +1,70 @@
 ﻿@*Page scripts references*@    
+<script src="~/Scripts/DSR/dsrUpdateScript.js"></script>
+<script src="~/Scripts/UserScript.js"></script>
+<script src="~/Scripts/General.js"></script>
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap.min.js"></script>
 
 <script>
+    var dsrid;
     $(document).ready(function () {
-        getDsrforUpdate('73');
-        //$('#dsrList').DataTable();
 
+        //Getting ID Values
+        dsrid = getUrlVars();
+
+       
+       
+        //GettinG Date
         getDate();
-        
+
+
+        //Getting Sales Man
+        getSalesman();
+
+        //Getting Area Data
+        getArea();
+
+        //Getting Product Data
+        getProduct();
+
+        $("#areaid").change(function () {
+            getCustbyArea($(this).val());
+        });
+
+
+        //Getting Products Data
+        $("#products").change(function () {
+            var proid = $("#products").val();
+            $("#ProductID").val(proid);
+            getProductSalrat($(this).val());
+            $("#Qty").focus();
+        });
+
+        $("#Qty").blur(function () {
+
+            var qty = $("#Qty").val();
+            var salrat = $("#salrat").val();
+
+            var amt_ = parseInt(qty) * parseInt(salrat);
+            $("#Amt").val(amt_);
+
+        });
+
+        //Disabling Dscount Field
+        $("#saleper").attr("disabled", true);
+
+        getDsrforUpdate(dsrid);
+
+        $("#updateDsrBtn").click(function () {
+
+            updateItemData();
+
+        });
     });
 </script>
-<script src="~/Scripts/dsrScript.js"></script>
-<script src="~/Scripts/UserScript.js"></script>
-<script src="~/Scripts/General.js"></script>
+
 
     <style type="text/css">
         .scrollit {
@@ -139,7 +188,7 @@
                      <input type="number"  id="ttlamt" name="ttlamt" class="form-control" value="0.00" />     
                 </section> 
                 <section class="text-center">    
-                    <button id="SubmitMoviesBtn" disabled="disabled" class="btn btn-success w-30">SAVE</button>    
+                    <button id="updateDsrBtn"  class="btn btn-success w-30">SAVE</button>    
                     <button id="SubmitCancelBtn" class="btn btn-danger w-30">Cancel</button>
                     <br />
                     <br />
@@ -147,5 +196,6 @@
                 </section>    
             </section>    
         </section>    
-    </section>    
+    </section>
+    <input type="hidden" id="dsrid" />    
 </section>    

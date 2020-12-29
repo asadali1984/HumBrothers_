@@ -340,7 +340,7 @@ function PostItemData() {
     item.Username = "";
     item.saleper = $("#saleper").val();
     item.prevbal = $("#prevbal").val();
-    item.Salesman = $("#SalesMan option:selected").html();
+    item.Salesman = $("#SalesMan").val();//$("#SalesMan option:selected").html();
     item.areaid = $("#areaid").val();
     item.furout = "0.00";
     item.updateBy = "";   
@@ -390,7 +390,7 @@ function PostMovies() {
         Movie.CreateAt = datetime;
         Movie.CreateBy = 'admin';
         Movie.CreateBy = 'admin';
-        Movie.ttlamt = this.cells[5].innerHTML;
+        Movie.ttlamt = $("#ttlamt").val();
         Movie.finlqry = this.cells[2].innerHTML;
         //Movie.TitleTxt = this.cells[5].innerHTML;
         //Movie.SummaryTxt = this.cells[6].innerHTML;
@@ -582,6 +582,25 @@ var sumAll = function () {
    
     totalAfterDiscount = sumVal - afterDis;
     $('#ttlamt').val(totalAfterDiscount);
+    console.log('totalAfterDiscount', totalAfterDiscount);
+}
+var sumAllforUpdate = function () {
+    var table = document.getElementById("table-information"), sumVal = 0;
+
+    for (var i = 1; i < table.rows.length; i++) {
+        sumVal = sumVal + parseInt(table.rows[i].cells[4].innerHTML);
+    }
+
+    //document.getElementById("val").innerHTML = "Sum Value = " + sumVal;
+    console.log('sum all', sumVal);
+
+    var dis = $('#saleper').val();
+    var afterDis = sumVal * (dis / 100);
+
+    totalAfterDiscount = sumVal - afterDis;
+    $('#ttlamt').val(totalAfterDiscount);
+    console.log('totalAfterDiscount', totalAfterDiscount);
+    
 }
 //SubtractAll Amount and print at the End..
 var subAll = function () {
@@ -600,6 +619,7 @@ var subAll = function () {
 
     totalAfterDiscount = sumVal - afterDis;
     $('#ttlamt').val(totalAfterDiscount);
+    
 }
 
 function Test(id) {
@@ -683,66 +703,6 @@ var redirectForUpdate = function (id) {
     window.location.href = '/home/setPageData/' + id;
 }
 
-function getDsrforUpdate(id) {
-    var uri = '/home/getDsrforUpdate/' + id;
-    //var uri = '/dsr/getArea/';
-
-    $.ajax({
-        type: "GET",
-        url: uri, ///Item/GetItemType',
-        contentType: 'application/json;',
-        dataType: "json",
-        success: successFunc,
-        error: errorFunc
-    });
-    function successFunc(data, status) {
-        //console.log(data);
-        //var data1 = jQuery.parseJSON(data);
-        console.log('dsr-data', data);
-        $("#areaid").val(data[0].areaid);
-        $("#saleper").val(data[0].saleper);
-        $("#prevbal").val(data[0].prevbal);
-        $("#ttlamt").val(data[0].ttlamt);
-        
-        //Getting Details DSR
-
-        getDsrListforUpdate(id);
-        //$.each(data, function (k, value) {
-        //    console.log('saleper', value.saleper);
-
-        //    $.each(data, function (k, value) {
-        //        var chtml = "";
-        //        chtml += "'<tr>";
-        //        chtml += "    <td>" + value.dsrdat + "</td>";
-        //        chtml += "    <td>" + value.CustomerName + "</td>";
-        //        chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.dsrid + ")'>Delete</a></td>";
-        //        chtml += " </tr>'";
-        //        //var tr = $("<tr />")
-        //        //$.each(value, function (k, v) {
-        //        //    tr.append(
-        //        //      $("<td />", {
-        //        //          html: v
-        //        //      })[0].outerHTML
-        //        //    );
-        //        //    $("#dsrList tbody").append(tr)
-        //        //})
-
-
-        //        $('#table-information > tbody').append(chtml);
-
-        //    });
-        //    //$("#tableContainer").html(html);
-
-        //});
-    }
-    function errorFunc(data) {
-        //alert(Object.values(err));
-        console.log(data);
-
-    }
-}
-
-
 function getDsrListforUpdate(id) {
     var uri = '/home/getDsrListforUpdate/' + id;
     //var uri = '/dsr/getArea/';
@@ -763,8 +723,8 @@ function getDsrListforUpdate(id) {
             $.each(data, function (k, value) {
                 var chtml = "";
                 chtml += "'<tr>";
-                chtml += "    <td>" + value.ProductName + "<input type='hidden' value='" + value.ProductID + "' /></td>";
-                chtml += "    <td>" + value.Qty + "</td>";
+                chtml += "    <td><input type='text'  value='" + value.ProductName + "' /> <input type='hidden' value='" + value.ProductID + "' /></td>";
+                chtml += "    <td><input type='number' value='" + value.Qty + "'/></td>";
                 chtml += "    <td>" + value.salrat + "</td>";
                 chtml += "    <td>" + value.salrturn + "</td>";
                 chtml += "    <td>" + value.Amt + "</td>";
@@ -774,6 +734,7 @@ function getDsrListforUpdate(id) {
                 $('#table-information > tbody').append(chtml);
 
             });
+       
        
     }
 

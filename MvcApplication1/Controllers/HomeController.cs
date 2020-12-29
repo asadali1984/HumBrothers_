@@ -279,7 +279,7 @@ namespace MvcApplication1.Controllers
             using (HumBrosContext db = new HumBrosContext())
             {
 
-                List<tbl_ddsr> lstitem = new List<tbl_ddsr>();
+                List<DDSR> lstitem = new List<DDSR>();
                 var data = (from t in db.tbl_ddsr
                             join j in db.Products on t.ProductID equals j.ProductID
                             where t.dsrid == id 
@@ -289,7 +289,7 @@ namespace MvcApplication1.Controllers
                             }).ToList();
                 foreach (var item in data)
                 {
-                    tbl_ddsr boitem = new tbl_ddsr();
+                    DDSR boitem = new DDSR();
                     boitem.ddsr = item.ddsr;
                     boitem.dsrid = item.dsrid;
                     boitem.ProductID = item.productid;
@@ -297,6 +297,7 @@ namespace MvcApplication1.Controllers
                     boitem.salrat = item.salrat;
                     boitem.salrturn = item.salreturn;
                     boitem.Amt = item.amt;
+                    boitem.ProductName = item.productname;
                     lstitem.Add(boitem);
                 }
                 return JsonConvert.SerializeObject(lstitem);
@@ -315,7 +316,7 @@ namespace MvcApplication1.Controllers
                             where t.dsrid == id 
                             //orderby t.dsrid descending
                             select new { dsrid = t.dsrid, dsrdat = t.dsrdat, salesman = t.Salesman, areaid = t.areaid, saleper = t.saleper,
-                                         prevbal = t.prevbal, ttlamt = i.ttlamt, CustomerName = j.CustomerName
+                                         prevbal = t.prevbal, ttlamt = i.ttlamt,CustomerID = t.CustomerID, CustomerName = j.CustomerName
                             }).Distinct();
                 foreach (var item in data)
                 {
@@ -327,7 +328,7 @@ namespace MvcApplication1.Controllers
                     boitem.saleper = item.saleper;
                     boitem.prevbal = item.prevbal;
                     boitem.ttlamt = item.ttlamt;
-                    //boitem.CustomerID = item.CustomerID;
+                    boitem.CustomerID = item.CustomerID;
                     boitem.CustomerName = item.CustomerName;
                     lstitem.Add(boitem);
 
@@ -497,7 +498,7 @@ namespace MvcApplication1.Controllers
             return JsonConvert.SerializeObject(lstitemcustarea);
         }
         //Update
-        public string update(tbl_Mdsr dsr)
+        public string updateMdsr(tbl_Mdsr dsr)
         {
             tbl_Mdsr boitem = new tbl_Mdsr();
             try
