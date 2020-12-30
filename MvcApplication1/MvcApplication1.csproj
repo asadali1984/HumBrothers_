@@ -173,6 +173,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\customers_.cs" />
+    <Compile Include="Models\DDSR.cs" />
     <Compile Include="Models\DSR.cs" />
     <Compile Include="Models\HumBrosContext .cs" />
     <Compile Include="Models\Movies.cs" />
@@ -244,7 +245,9 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\humbros.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
-    <Content Include="Scripts\dsrScript.js" />
+    <Content Include="Scripts\DSR\dsrScript.js" />
+    <Content Include="Scripts\DSR\dsrUpdateScript.js" />
+    <Content Include="Scripts\General.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -308,6 +311,7 @@
     <Content Include="Views\Users\Create.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Home\setPageData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
