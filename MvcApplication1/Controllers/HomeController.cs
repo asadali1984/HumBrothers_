@@ -206,25 +206,25 @@ namespace MvcApplication1.Controllers
             return Json(Result);
         }
 
-        [HttpPost]
-        public JsonResult updateDDSR(string dsrid)  //function to save information into database
-        {
-            dsrid = "48";
+        //[HttpPost]
+        //public JsonResult updateDDSR(string dsrid)  //function to save information into database
+        //{
+        //    dsrid = "48";
 
-            using (HumBrosContext db = new HumBrosContext())
-            {
-                //var lastId = (from i in db.tbl_Mdsr select i.dsrid).Max();
-                db.tbl_ddsr.Where(c => c.dsrid == Convert.ToInt32(dsrid)).ToList();//;.SetValue(c => c.CreditLimit = 1000);
-                //foreach (tbl_ddsr mov in tblddsr)
-                //{
-                //    db.tbl_ddsr.Add(mov);
-                //}
-                //db.SaveChanges();
-            }
+        //    using (HumBrosContext db = new HumBrosContext())
+        //    {
+        //        //var lastId = (from i in db.tbl_Mdsr select i.dsrid).Max();
+        //        db.tbl_ddsr.Where(c => c.dsrid == Convert.ToInt32(dsrid)).ToList();//;.SetValue(c => c.CreditLimit = 1000);
+        //        //foreach (tbl_ddsr mov in tblddsr)
+        //        //{
+        //        //    db.tbl_ddsr.Add(mov);
+        //        //}
+        //        //db.SaveChanges();
+        //    }
 
-            bool Result = true;
-            return Json(Result);
-        }
+        //    bool Result = true;
+        //    return Json(Result);
+        //}
 
 
         public string getProduct()
@@ -337,6 +337,8 @@ namespace MvcApplication1.Controllers
             }
 
         }
+        //Delete All DSR
+
         public string deleteDsr(int id)
         {
             try
@@ -364,7 +366,30 @@ namespace MvcApplication1.Controllers
             }
            
         }
+        //Delete only Detail DSR
 
+        public string deleteDDsr(int id)
+        {
+            try
+            {
+                using (HumBrosContext db = new HumBrosContext())
+                {
+                    int dsrid_ = id;
+                    tbl_ddsr ddsrid = (from t in db.tbl_ddsr where t.ddsr == dsrid_ select t).FirstOrDefault();
+
+                    //Remove from Child DSR
+                    db.tbl_ddsr.Remove(ddsrid);
+                    db.SaveChanges();
+                   
+                    return "DSR Deleted";
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message.ToString();
+            }
+
+        }
         
         // get mdsrid
         public string getMdsrid()
@@ -497,7 +522,7 @@ namespace MvcApplication1.Controllers
             }
             return JsonConvert.SerializeObject(lstitemcustarea);
         }
-        //Update
+        //Update Mdsr
         public string updateMdsr(tbl_Mdsr dsr)
         {
             tbl_Mdsr boitem = new tbl_Mdsr();
@@ -535,6 +560,37 @@ namespace MvcApplication1.Controllers
             return "item successfully update";
         }
 
+
+        //Update Ddsr
+        public string updateDdsr(List<tbl_ddsr> dsr)
+        {
+            //tbl_ddsr boitem = new tbl_ddsr();
+            try
+            {
+                using (HumBrosContext db = new HumBrosContext())
+                {
+                    //var lastId = (from i in db.tbl_Mdsr select i.dsrid).Max();
+
+                    foreach (tbl_ddsr mov in dsr)
+                    {
+                        if (mov.ddsr == 0)
+                        {
+                            db.tbl_ddsr.Add(mov);
+                        }
+                        
+                    }
+                    db.SaveChanges();
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                throw;
+
+            }
+            return "item successfully update";
+        }
         public string getProductSalrat(int id)
         {
             List<Products> lstitemtype = new List<Products>();

@@ -285,7 +285,7 @@ function getCustomerSalper(id) {
 }
 
 
-// GET Sales Percent
+// GET dsrid
 function getMdsrId() {
     //var uri = '/api/employee/getSalesMan/';
     var uri = '/home/getMdsrid';
@@ -695,7 +695,7 @@ function deleteDsr(dsrid)
         }
 
     } else {
-        alert('notg Deleting...');
+        alert('not Deleting...');
     }
     
 }
@@ -703,47 +703,6 @@ var redirectForUpdate = function (id) {
     window.location.href = '/home/setPageData/' + id;
 }
 
-function getDsrListforUpdate(id) {
-    var uri = '/home/getDsrListforUpdate/' + id;
-    //var uri = '/dsr/getArea/';
-
-    $.ajax({
-        type: "GET",
-        url: uri, ///Item/GetItemType',
-        contentType: 'application/json;',
-        dataType: "json",
-        success: successFunc,
-        error: errorFunc
-    });
-    function successFunc(data, status) {
-        //console.log(data);
-        //var data1 = jQuery.parseJSON(data);
-        console.log('dsr-data', data);
-        
-            $.each(data, function (k, value) {
-                var chtml = "";
-                chtml += "'<tr>";
-                chtml += "    <td><input type='text'  value='" + value.ProductName + "' /> <input type='hidden' value='" + value.ProductID + "' /></td>";
-                chtml += "    <td><input type='number' value='" + value.Qty + "'/></td>";
-                chtml += "    <td>" + value.salrat + "</td>";
-                chtml += "    <td>" + value.salrturn + "</td>";
-                chtml += "    <td>" + value.Amt + "</td>";
-                chtml += "    <td><a href='#' class='btn btn-danger' onclick='deleteDsr(" + value.ddsr + ")'>Delete</a></td>";
-                chtml += " </tr>'";
-            
-                $('#table-information > tbody').append(chtml);
-
-            });
-       
-       
-    }
-
-    function errorFunc(data) {
-        //alert(Object.values(err));
-        console.log(data);
-
-    }
-}
 
 function getDsr() {
     var uri = '/home/getDsr';
