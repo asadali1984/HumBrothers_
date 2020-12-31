@@ -256,7 +256,7 @@ function PostMovies() {
         Movie.dsrrmk = "";
         Movie.CompanyId = "COM_001";
         Movie.BranchId = "001";
-        Movie.CreateAt = datetime;
+        Movie.CreateAt = d;
         Movie.CreateBy = 'admin';
         Movie.CreateBy = 'admin';
         Movie.ttlamt = $("#ttlamt").val();
@@ -387,13 +387,12 @@ function updateItemData() {
             //getMdsrId();
             setTimeout(function () { PostMovies(); }, 1000);
            
-             //location.reload();
+             window.location.href="/home/Contact";
         },
         error: function (err) {
             //console.log(err)
-            setTimeout(function () { PostMovies(); }, 1000);
-
-            //location.reload();
+            setTimeout(function () { PostMovies(); }, 1000);            
+            window.location.href = "/home/Contact";
         },
     });
 }
