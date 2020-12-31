@@ -85,7 +85,7 @@ namespace MvcApplication1.Controllers
                                 CompanyId = dsr.CompanyId,
                                 BranchId = dsr.BranchId,
                                 Isdone = dsr.Isdone,
-                                CreateAt = dsr.CreateAt,
+                                CreateAt = DateTime.Now,
                                 CreateBy = Session["user"].ToString(),
                                 Isdon = dsr.Isdon,
                                 Username = dsr.Username,
@@ -537,7 +537,7 @@ namespace MvcApplication1.Controllers
                         check.CompanyId = dsr.CompanyId;
                         check.BranchId = dsr.BranchId;
                         check.Isdone = dsr.Isdone;
-                        check.CreateAt = dsr.CreateAt;
+                        check.CreateAt = DateTime.Now;
                         check.CreateBy = Session["user"].ToString();
                         check.Isdon = dsr.Isdon;
                         check.Username = dsr.Username;

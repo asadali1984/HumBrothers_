@@ -1,6 +1,13 @@
 ﻿var dsrid;
+//Getting Date:
+var d = new Date();
+var datetime = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
 
+console.log('datetime', datetime);
 $(document).ready(function () {
+
+   
+
     //set onclick events for buttons  
     $('#AddTempMovieBtn').click(function () { AddTempMoview(); });
     $('#SubmitMoviesBtn').click(function () {
@@ -52,9 +59,7 @@ $(document).ready(function () {
     getProduct();
 });
 
-//Getting Date:
-var d = new Date();
-var datetime = d.getMonth() + '/' + d.getDate() + '/' + d.getFullYear();
+
 
 
 function getProduct() {
@@ -345,7 +350,7 @@ function PostItemData() {
     item.furout = "0.00";
     item.updateBy = "";   
     item.finlqry = "0.00";
-
+    console.log('insert', item);
     $.ajax({
         url: '/home/insertMdsr',
         data: JSON.stringify(item),
@@ -387,8 +392,7 @@ function PostMovies() {
         Movie.dsrrmk = "";
         Movie.CompanyId = "COM_001";
         Movie.BranchId = "001";
-        Movie.CreateAt = datetime;
-        Movie.CreateBy = 'admin';
+        Movie.CreateAt = d;
         Movie.CreateBy = 'admin';
         Movie.ttlamt = $("#ttlamt").val();
         Movie.finlqry = this.cells[2].innerHTML;
