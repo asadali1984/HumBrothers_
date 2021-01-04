@@ -554,7 +554,7 @@ namespace MvcApplication1.Controllers
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
 
             }
             return "item successfully update";
@@ -586,7 +586,7 @@ namespace MvcApplication1.Controllers
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
 
             }
             return "item successfully update";
