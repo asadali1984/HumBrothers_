@@ -386,13 +386,15 @@ function updateItemData() {
         success: function (result) {
             //getMdsrId();
             setTimeout(function () { PostMovies(); }, 1000);
+            setTimeout(function () { window.location.href = "/home/Contact"; }, 3000);
            
-             window.location.href="/home/Contact";
+             
         },
         error: function (err) {
             //console.log(err)
-            setTimeout(function () { PostMovies(); }, 1000);            
-            window.location.href = "/home/Contact";
+            setTimeout(function () { PostMovies();}, 1000);
+            setTimeout(function () { window.location.href = "/home/Contact"; }, 3000);
+           
         },
     });
 }
