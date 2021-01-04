@@ -55,7 +55,7 @@
         //Disabling Dscount Field
         $("#saleper").attr("disabled", true);
 
-        getDsrforUpdate(dsrid);
+        setTimeout(function () { getDsrforUpdate(dsrid); }, 2000);
 
         $("#updateDsrBtn").click(function () {
 
