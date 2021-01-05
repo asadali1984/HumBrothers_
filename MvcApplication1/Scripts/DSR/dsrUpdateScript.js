@@ -29,12 +29,75 @@ function getDsrforUpdate(id) {
         getCustbyArea(data[0].areaid, data[0].CustomerID);
         $("#ttlamt").val(data[0].ttlamt);
         getDsrListforUpdate(data[0].dsrid);
+        
+        setTimeout(function () { sumAll(); }, 3000);
     }
 
     function errorFunc(data) {
         //alert(Object.values(err));
         console.log(data);
 
+    }
+}
+// GET Customer OutStanding
+function getCustomerOutstan(id) {
+    //var uri = '/api/employee/getSalesMan/';
+    var uri = '/home/getCustomerOutstan/' + id;
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        console.log(data);
+        if (data) {
+            $.each(data, function (k, v) {
+                console.log(v);
+                $("#prevbal").val(v.CredAmt);
+            });
+        }
+
+    }
+
+    function errorFunc() {
+        alert('error');
+    }
+}
+
+// GET Sales Percent
+function getCustomerSalper(id) {
+    //var uri = '/api/employee/getSalesMan/';
+    var uri = '/home/getCustomerSalper/' + id;
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        console.log(data);
+        if (data) {
+            console.log(data[0].saleper);
+            //document.getElementById("saleper").values = data[0].saleper;
+            $("#saleper").val(data[0].saleper);
+            //$.each(data, function (k, v) {
+            //    console.log(v);
+            //    //$("#dis").val("3");//v.saleper;
+            //    document.getElementById("saleper").innerHTML = v.saleper;
+            //});
+        }
+
+    }
+
+    function errorFunc() {
+        alert('error');
     }
 }
 
@@ -300,6 +363,8 @@ function PostMovies() {
                 $("#Amt").val("0.00");
                 //location.reload();
 
+                
+
             } else {
                 ShowMsn("Ooops, an error has ocurrer while processing the transaction.");
             }
@@ -385,16 +450,18 @@ function updateItemData() {
         dataType: 'json',
         success: function (result) {
             //getMdsrId();
-            setTimeout(function () { PostMovies(); }, 1000);
-            setTimeout(function () { window.location.href = "/home/Contact"; }, 3000);
+            setTimeout(function () { PostMovies(); alert('DSR has been updated!!'); }, 1000);
+            
+            setTimeout(function () { window.location.href = "/home/About"; }, 5000);
            
-             
+             //
         },
         error: function (err) {
             //console.log(err)
-            setTimeout(function () { PostMovies();}, 1000);
-            setTimeout(function () { window.location.href = "/home/Contact"; }, 3000);
-           
+            setTimeout(function () { PostMovies(); alert('DSR has been updated!!'); }, 1000);
+            
+            setTimeout(function () { window.location.href = "/home/About"; }, 5000);
+            //window.location.href = "/home/Contact";
         },
     });
 }
@@ -435,7 +502,7 @@ function getDsrListforUpdate(id) {
 
         });
 
-        sumAll();
+       
     }
 
     function errorFunc(data) {
@@ -586,11 +653,13 @@ function Delete(row) { // remove row from table
     if (ddsrid == "") {
         row.closest('tr').remove();
         CheckSubmitBtn();
+        setTimeout(function () { sumAll(); }, 2000);
     } else {
         deleteDDsr(ddsrid);
         location.reload();
     }
-        subAll();
+
+    //setTimeout(function () { subAll(); }, 2000);
 }
 
 //Enable or disabled submit button  
@@ -634,11 +703,11 @@ var subAll = function () {
     var table = document.getElementById("table-information"), sumVal = 0;
 
     for (var i = 1; i < table.rows.length; i++) {
-        sumVal = parseInt(table.rows[i].cells[5].innerHTML) - sumVal;
+        sumVal = parseInt(table.rows[i].cells[4].innerHTML) - sumVal;
     }
 
     //document.getElementById("val").innerHTML = "Sum Value = " + sumVal;
-    console.log('sum all', sumVal);
+    console.log('sub all', sumVal);
 
     var dis = $('#saleper').val();
     var afterDis = sumVal * (dis / 100);
@@ -669,7 +738,7 @@ function deleteDDsr(dsrid) {
             error: errorFunc
         });
         function successFunc(data, status) {
-            alert('DSR has been deleted!..');
+            alert('Product of dsr has been deleted!..');
             //console.log('data',data);
             //console.log('status',status);
             //location.reload();
@@ -677,7 +746,7 @@ function deleteDDsr(dsrid) {
         function errorFunc(data) {
 
             //console.log('error', data);
-            alert('DSR has been deleted!..');
+            alert('Product of dsr has been deleted!..');
             //location.reload();
 
         }
