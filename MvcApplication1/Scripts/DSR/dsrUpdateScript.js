@@ -738,7 +738,7 @@ function deleteDDsr(dsrid) {
             error: errorFunc
         });
         function successFunc(data, status) {
-            alert('DSR has been deleted!..');
+            alert('Product of dsr has been deleted!..');
             //console.log('data',data);
             //console.log('status',status);
             //location.reload();
@@ -746,7 +746,7 @@ function deleteDDsr(dsrid) {
         function errorFunc(data) {
 
             //console.log('error', data);
-            alert('DSR has been deleted!..');
+            alert('Product of dsr has been deleted!..');
             //location.reload();
 
         }
