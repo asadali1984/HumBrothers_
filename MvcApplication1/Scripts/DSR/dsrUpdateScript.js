@@ -752,7 +752,7 @@ function deleteDDsr(dsrid) {
         }
 
     } else {
-        alert('notg Deleting...');
+        alert('not Deleting...');
     }
 
 }
