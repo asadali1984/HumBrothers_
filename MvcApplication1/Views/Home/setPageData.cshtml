@@ -42,6 +42,15 @@
             $("#Qty").focus();
         });
 
+        // Getting Customer OutStanding
+        $("#CustomerID").change(function () {
+
+            getCustomerOutstan($(this).val());
+            getCustomerSalper($(this).val()); 
+            setTimeout(function () { sumAll(); }, 2000);
+        });
+
+
         $("#Qty").blur(function () {
 
             var qty = $("#Qty").val();
