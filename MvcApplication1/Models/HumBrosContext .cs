@@ -23,6 +23,9 @@ namespace MvcApplication1.Models
         public DbSet<tbl_Salcredit> tbl_Salcredit { get; set; }
         public DbSet<DSR> DSR { get; set; }
         public DbSet<tbl_booksalman> tbl_booksalman { get; set; }
+        public DbSet<tbl_Mstk> tbl_Mstk { get; set; }
+        public DbSet<tbl_Dstk> tbl_Dstk { get; set; }
+        public DbSet<STK> STK { get; set; }
 
     }
 }

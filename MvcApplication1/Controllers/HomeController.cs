@@ -229,14 +229,32 @@ namespace MvcApplication1.Controllers
 
         public string getProduct()
         {
+            //using (HumBrosContext db = new HumBrosContext())
+            //{
+            //    List<Products> lstitem = new List<Products>();
+            //    var data = from t in db.Products
+            //               select new {   id = t.ProductID, Name= t.ProductName};
+            //    foreach (var item in data)
+            //    {
+            //        Products boitem = new Products();
+            //        boitem.ProductID = item.id;
+            //        boitem.ProductName = item.Name;
+            //        lstitem.Add(boitem);
+
+            //    }
+            //    return JsonConvert.SerializeObject(lstitem);
+            //}
+
             using (HumBrosContext db = new HumBrosContext())
             {
-                List<Products> lstitem = new List<Products>();
-                var data = from t in db.Products
-                           select new {   id = t.ProductID, Name= t.ProductName};
+                List<STK> lstitem = new List<STK>();
+                var data = from t in db.tbl_Mstk
+                           join a in db.tbl_Dstk on t.Mstk_id equals a.Mstk_id
+                           join p in db.Products on a.ProductID equals p.ProductID
+                           select new { id = a.ProductID, Name = p.ProductName };
                 foreach (var item in data)
                 {
-                    Products boitem = new Products();
+                    STK boitem = new STK();
                     boitem.ProductID = item.id;
                     boitem.ProductName = item.Name;
                     lstitem.Add(boitem);
