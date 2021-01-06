@@ -178,10 +178,13 @@
     <Compile Include="Models\HumBrosContext .cs" />
     <Compile Include="Models\Movies.cs" />
     <Compile Include="Models\Products.cs" />
+    <Compile Include="Models\STK.cs" />
     <Compile Include="Models\tbl_area.cs" />
     <Compile Include="Models\tbl_booksalman.cs" />
     <Compile Include="Models\tbl_ddsr.cs" />
+    <Compile Include="Models\tbl_Dstk.cs" />
     <Compile Include="Models\tbl_Mdsr.cs" />
+    <Compile Include="Models\tbl_Mstk.cs" />
     <Compile Include="Models\tbl_Salcredit.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
