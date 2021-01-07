@@ -36,11 +36,13 @@ $(document).ready(function () {
 
     });
 
+   
     //Getting Products Data
-    $("#products").change(function () {
+    $("#products").change(function () {        
         var proid = $("#products").val();
         $("#ProductID").val(proid);
-        getProductSalrat($(this).val());
+        checkProduct($(this).val());
+        //getProductSalrat($(this).val());
         $("#Qty").focus();
     });
 
@@ -756,5 +758,49 @@ function getDsr() {
         //alert(Object.values(err));
         console.log(data);
 
+    }
+}
+
+
+// Check Products
+function checkProduct(id) {
+    //var uri = '/api/employee/getSalesMan/';
+    var uri = '/home/checkProduct/' + id;
+
+    $.ajax({
+        type: "GET",
+        url: uri, ///Item/GetItemType',
+        contentType: 'application/json;',
+        dataType: "json",
+        success: successFunc,
+        error: errorFunc
+    });
+    function successFunc(data, status) {
+        console.log('product check', data);
+
+        if (data == "1") {
+            getProductSalrat(id);
+
+        } else if (data == "0") {
+            alert("Product is Less in Stock!!..");
+
+            $("#Qty").val("0.00");
+            $("#salrat").val("0.00");
+            $("#salrturn").val("0.00");
+            $("#Amt").val("0.00");
+            $("#ProductID").val("");
+
+            return false;
+        }
+        //if (data) {
+        //    $.each(data, function (k, v) {
+        //        console.log(v);                
+        //    });
+        //}
+
+    }
+
+    function errorFunc() {
+        alert('error');
     }
 }
