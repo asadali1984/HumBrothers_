@@ -349,7 +349,7 @@ function PostItemData() {
     item.prevbal = $("#prevbal").val();
     item.Salesman = $("#SalesMan").val();//$("#SalesMan option:selected").html();
     item.areaid = $("#areaid").val();
-    item.furout = "0.00";
+    item.furout = $("#prevbal").val();
     item.updateBy = "";   
     item.finlqry = "0.00";
     console.log('insert', item);
