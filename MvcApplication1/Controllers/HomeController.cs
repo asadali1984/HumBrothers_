@@ -226,7 +226,42 @@ namespace MvcApplication1.Controllers
         //    return Json(Result);
         //}
 
+        public string checkProduct(int id)
+        {
+            using (HumBrosContext db = new HumBrosContext())
+            {
+                List<tbl_Dstk> lstitem = new List<tbl_Dstk>();
 
+                var data = from o in db.tbl_Dstk
+                           where o.ProductID == id && o.Dstk_ItmQty > 0
+                           // join i in db.Items on o.itemid equals i.id
+                           select new
+                           {
+                               ProductID = o.ProductID,
+
+                           };
+                foreach (var item in data)
+                {
+                    tbl_Dstk boitem = new tbl_Dstk();
+                    boitem.ProductID = item.ProductID;
+                    lstitem.Add(boitem);
+                    
+                }
+                bool isEmpty = !lstitem.Any();
+
+                if (isEmpty)
+                {
+                    return "0";
+                    // error message
+                }
+                else
+                {
+                    return "1";
+                    // show grid
+                }
+            }
+
+        }
         public string getProduct()
         {
             //using (HumBrosContext db = new HumBrosContext())
